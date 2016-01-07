@@ -50,7 +50,7 @@ NeoBundle 'sheerun/vim-polyglot'
 NeoBundle 'vim-scripts/grep.vim'
 NeoBundle 'vim-scripts/CSApprox'
 NeoBundle 'bronson/vim-trailing-whitespace'
-
+NeoBundle 'terryma/vim-multiple-cursors'
 
 "" Snippets
 NeoBundle 'SirVer/ultisnips'
@@ -164,7 +164,6 @@ set guifont=Source\ Code\ Pro\ for\ Powerline\ 9
 
 if has("gui_running")
   if has("gui_mac") || has("gui_macvim")
-    " set guifont=Menlo:h12
     set transparency=7
   endif
 else
@@ -232,13 +231,13 @@ cnoreabbrev Qall qall
 
 "" NERDTree configuration
 let g:NERDTreeChDirMode=2
-let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__', 'bower_components']
 let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
 let g:NERDTreeShowBookmarks=1
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 20
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,bower_components
 noremap <F2> :NERDTreeToggle<CR>
 
 " grep.vim
@@ -288,7 +287,7 @@ set autoread
 "*****************************************************************************
 "" Custom mappings
 map <F5> :%s/\t/    /g<CR>:w<CR>
-
+map <F6> :%!python -m json.tool<CR>
 "" Split
 noremap <Leader>h :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>
@@ -319,7 +318,7 @@ noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 "" ctrlp.vim
 set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__,odoo-8
+set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__,odoo-8,*uploads*,*bower_components*
 let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:10,results:10'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|tox|odoo-8)$'
 let g:ctrlp_user_command = "find %s -type f | grep -Ev '"+ g:ctrlp_custom_ignore +"'"
@@ -336,9 +335,6 @@ let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 let g:UltiSnipsEditSplit="vertical"
 
 autocmd FileType python UltiSnipsAddFiletypes django
-autocmd FileType python UltiSnipsAddFiletypes odoo_python
-autocmd FileType xml UltiSnipsAddFiletypes odoo_xml
-
 " syntastic
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_error_symbol='✗'
@@ -386,6 +382,7 @@ augroup END
 
 " jedi-vim
 let g:jedi#popup_on_dot = 0
+let g:jedi#use_tabs_not_buffers = 0
 let g:jedi#goto_assignments_command = "<leader>g"
 let g:jedi#goto_definitions_command = "<leader>d"
 let g:jedi#documentation_command = "K"
@@ -393,6 +390,7 @@ let g:jedi#usages_command = "<leader>n"
 let g:jedi#rename_command = "<leader>r"
 let g:jedi#show_call_signatures = "0"
 let g:jedi#completions_command = "<C-Space>"
+let g:jedi#smart_auto_mappings = 0
 
 " syntastic
 let g:syntastic_python_checkers=['python', 'flake8']
@@ -418,5 +416,6 @@ let g:tagbar_type_go = {
     \ 'ctagsbin'  : 'gotags',
     \ 'ctagsargs' : '-sort -silent'
     \ }
+
 
 let g:javascript_enable_domhtmlcss = 1
