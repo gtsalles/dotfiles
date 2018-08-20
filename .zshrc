@@ -14,6 +14,9 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+alias ..='cd ..'
+alias ...='cd ../..'
+
 export LANG="en_US.UTF-8"
 export EDITOR='vim'
 
