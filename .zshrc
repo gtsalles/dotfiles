@@ -8,6 +8,7 @@ source virtualenvwrapper.sh
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 plugins=(git archlinux python pip sudo systemd docker)
+plugins=(git archlinux python pip sudo systemd docker docker-compose)
 
 source $ZSH/oh-my-zsh.sh
 
